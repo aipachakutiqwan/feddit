@@ -2,7 +2,10 @@
 
 This repository contains an inference service for the BERT uncased multilingual finetunned sentiment classification model. The RESTful API classifies the sentiment of the Feddit (aka. fake Reddit) comments for a given Subfeddit.
 
-#### Online Endpoint Microservice
+The sentiment analysis services is based on the public finetunned model: https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment. The sentiment scores goes from 1 to 5, 1 is the most negative and 5 the most positive sentiment score.
+
+
+#### Online Endpoint Sentiment Analysis Microservice
 
 A Fast API online endpoint for sentiment classification predictor was created and exposed on the port 8081. The input to the RESTful API are the following fields.
 
