@@ -244,7 +244,7 @@ feddit-inference-server-feddit-1  | [Tech] 2024-07-14 22:35:25,549 - INFO - Uvic
 }
  ```
 
-- It is possible to modify the API request query for filter comments by a specific time range. Use the below command to test this feature.
+- It is possible to modify the API request query to filter comments by a specific time range. Use the below command to test this feature.
 
  ```console
  python test/integration/predict_sentiment_2.py 
