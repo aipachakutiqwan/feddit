@@ -24,9 +24,14 @@ class Predictor:
         self.sentiment_name = { 1: 'positive',
                                 0: 'Negative'
                               }
-        self.tokenizer = AutoTokenizer.from_pretrained('./models/nlptown/bert-base-multilingual-uncased-sentiment')
-        self.model = AutoModelForSequenceClassification.from_pretrained('./models/nlptown/bert-base-multilingual-uncased-sentiment')
-        self.endpoint_comments = f"http://0.0.0.0:8080/api/v1/comments/?subfeddit_id=subfeddit_id_request&skip=0&limit=25"
+        self.model_path_sentiment_analysis = os.getenv('MODEL_PATH_SENTIMENT_ANALYSIS')
+        if not self.model_path_sentiment_analysis:
+            raise Exception(f"MODEL PATH SENTIMENT ANALYSIS NOT IN ENVIRONMENT")
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_path_sentiment_analysis)
+        self.model = AutoModelForSequenceClassification.from_pretrained(self.model_path_sentiment_analysis)
+        self.endpoint_comments = os.getenv('ENDPOINT_COMMENTS')
+        if not self.endpoint_comments:
+            raise Exception(f"ENDPOINT COMMENTS SERVICE NOT IN ENVIRONMENT")
         logging.info("Loaded sentiment analysis BERT model")
 
     def predict_subfeddit_sentiment(self, subfeddit: Subfeddit):
