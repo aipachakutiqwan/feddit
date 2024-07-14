@@ -4,16 +4,30 @@ This repository contains an inference service for the BERT uncased multilingual 
 
 #### Online Endpoint Microservice
 
-A Fast API online endpoint for sentiment classification predictor was created and exposed on the port 8081. The input to the RESTful API are the following.
+A Fast API online endpoint for sentiment classification predictor was created and exposed on the port 8081. The input to the RESTful API are the following fields.
+
+-  subfeddit_id (integer). Required subfeddit_id which it take 1, 2 or 3 as values.
+- comments_start_time (string). Optional if it is required to filter the output comments by time range.
+- comments_end_time (string). Optional if it is required to filter the output comments by time range.
+- sort_polarity_comments (string). Optional if it is required to sort the output comments by sentiment polarity.
+
+The output of the service will have the following structure.
 
 ```console
-    subfeddit_id: int # Required subfeddit_id which it will take 1, 2 or 3 as values.
-    comments_start_time: Optional[str] # Optional if it is required to filter the output comments.
-    comments_end_time: Optional[str] # Optional if it is required to filter the output comments
-    sort_polarity_comments: Optional[bool] # Optional if it is required to sort the output comments by sentiment polarity.
-
+ {
+    "id": "subfeddit_id",
+    "comments": [
+        {
+            "id": "id_comment",
+            "text": "text comment",
+            "polarity_score": "sentiment score which range from 1 to 5",
+            "sentiment": "positive or negative",
+            "created_at": "comment creation in %Y-%m-%d %H:%M:%S"
+        }
+    ],
+    "observations": "Format applied to the output comments"
+}
  ```
-
 
 For activate the sentiment analysis inference enpoint it is required to follow the next steps.
 
@@ -44,7 +58,8 @@ feddit-inference-server-feddit-1  | [Tech] 2024-07-14 22:35:25,549 - INFO - Uvic
  curl -X POST http://localhost:8081/api/subfeddit/sentiment -H 'Content-Type: application/json'  -d '{"subfeddit_id": 3}'
  ```
 
-- Verify the sentiment analysis prediction output for the requested subfeddit_id=3.
+- Verify the sentiment analysis prediction output for the requested subfeddit_id=3. The results will be similar to the below Json output.
+
  ```console
 {
     "id": 3,
@@ -228,8 +243,18 @@ feddit-inference-server-feddit-1  | [Tech] 2024-07-14 22:35:25,549 - INFO - Uvic
     "observations": "Comments not filtered by datetime range (missing or wrong start/end datetime format %Y-%m-%d %H:%M:%S), comments not sorted by polarity score"
 }
 
+- It is possible to modify the API request query for filter comments output by a specific time range. Use the below command to test this feature.
 
+ ```console
+ python test/integration/predict_sentiment_2.py 
  ```
+
+- Also, it is possible to sort the comments results by the polarity score using the following command.
+
+ ```console
+ python test/integration/predict_sentiment_3.py 
+ ```
+
 - Finally, shut down the service and close the terminal.
 
  ```console
