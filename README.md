@@ -22,7 +22,7 @@ The output of the service will have the following structure.
             "text": "text comment",
             "polarity_score": "sentiment score which range from 1 to 5",
             "sentiment": "positive or negative",
-            "created_at": "comment creation in %Y-%m-%d %H:%M:%S"
+            "created_at": "comment creation in the format %Y-%m-%d %H:%M:%S"
         }
     ],
     "observations": "Format applied to the output comments"
@@ -36,7 +36,7 @@ For activate the sentiment analysis inference enpoint it is required to follow t
  docker compose up 
  ```
 
-- Verify that the sentiment analysis service is running on the port 8081. Below some example logs which should appears in the terminal.
+- Verify that the sentiment analysis service is running on the port 8081. Below some example logs which should appear in the terminal.
 
 ```console
 feddit-inference-server-feddit-1  | [Tech] 2024-07-14 22:35:25,545 - INFO - Loaded sentiment analysis BERT model
@@ -48,7 +48,7 @@ feddit-inference-server-feddit-1  | [Tech] 2024-07-14 22:35:25,549 - INFO - Uvic
 
  ```
 
-- Send a post request using the integration post request test.
+- Send a post request using the integration test post request.
 
  ```console
  python test/integration/predict_sentiment_1.py 
@@ -58,7 +58,7 @@ feddit-inference-server-feddit-1  | [Tech] 2024-07-14 22:35:25,549 - INFO - Uvic
  curl -X POST http://localhost:8081/api/subfeddit/sentiment -H 'Content-Type: application/json'  -d '{"subfeddit_id": 3}'
  ```
 
-- Verify the sentiment analysis prediction output for the requested subfeddit_id=3. The results will be similar to the below Json output.
+- Verify the sentiment analysis prediction output for the requested subfeddit_id=3. The results will be similar to the below JSON output.
 
  ```console
 {
@@ -242,20 +242,21 @@ feddit-inference-server-feddit-1  | [Tech] 2024-07-14 22:35:25,549 - INFO - Uvic
     ],
     "observations": "Comments not filtered by datetime range (missing or wrong start/end datetime format %Y-%m-%d %H:%M:%S), comments not sorted by polarity score"
 }
+ ```
 
-- It is possible to modify the API request query for filter comments output by a specific time range. Use the below command to test this feature.
+- It is possible to modify the API request query for filter comments by a specific time range. Use the below command to test this feature.
 
  ```console
  python test/integration/predict_sentiment_2.py 
  ```
 
-- Also, it is possible to sort the comments results by the polarity score using the following command.
+- Also, it is possible to sort the comments results by the polarity score using the next command.
 
  ```console
  python test/integration/predict_sentiment_3.py 
  ```
 
-- Finally, shut down the service and close the terminal.
+- Play with the services changing the content of the test cases. Finally, shut down the service and close the terminal.
 
  ```console
  docker compose down
