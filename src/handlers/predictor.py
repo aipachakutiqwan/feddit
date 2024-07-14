@@ -75,15 +75,15 @@ class Predictor:
         Returns:
             array_response_comments: added sentiment to comment list.
         """
-        logging.info(f'processing comment: {comment} : subfeddit_id={subfeddit_id} : comment_id={comment['id']}')
+        logging.info(f"processing comment: {comment} : subfeddit_id={subfeddit_id} : comment_id={comment['id']}")
         tokens = self.tokenizer.encode(comment['text'], return_tensors='pt')
         model_output = self.model(tokens)
-        logging.info(f'model_output: {model_output} : subfeddit_id={subfeddit_id} : comment_id={comment['id']}')
+        logging.info(f"model_output: {model_output} : subfeddit_id={subfeddit_id} : comment_id={comment['id']}")
         class_number = int(torch.argmax(model_output.logits))
         sentiment_id = 1 if class_number>=2 else 0
         polarity_score = float(torch.max(model_output.logits))
-        logging.info(f'polarity_score: {polarity_score} : subfeddit_id={subfeddit_id} : comment_id={comment['id']}')
-        logging.info(f'class_number: {class_number} : subfeddit_id={subfeddit_id} : comment_id={comment['id']}')
+        logging.info(f"polarity_score: {polarity_score} : subfeddit_id={subfeddit_id} : comment_id={comment['id']}")
+        logging.info(f"class_number: {class_number} : subfeddit_id={subfeddit_id} : comment_id={comment['id']}")
         array_response_comments.append({
             'id': comment['id'],
             'text': comment['text'],
