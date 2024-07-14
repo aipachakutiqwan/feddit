@@ -1,6 +1,6 @@
 # Feddit
 
-This repository contains an inference service for the BERT uncased multilingual finetunned sentiment classification model. The RESTful API classifies the sentiment of the Feddit (aka. fake Reddit) comments of a given Subfeddit.
+This repository contains an inference service for the BERT uncased multilingual finetunned sentiment classification model. The RESTful API classifies the sentiment of the Feddit (aka. fake Reddit) comments for a given Subfeddit.
 
 #### Online Endpoint Microservice
 
