@@ -28,7 +28,7 @@ The output of the service will have the following structure.
             "created_at": "comment creation in the format %Y-%m-%d %H:%M:%S"
         }
     ],
-    "observations": "Format applied to the output comments"
+    "observations": "Explanation about the format applied to the output comments"
 }
  ```
 
