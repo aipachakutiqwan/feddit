@@ -1,0 +1,6 @@
+app_version: '0.0.1'
+app_name: 'feedit'
+api_prefix: '/api'
+is_debug: true
+log_filename: 'logs/feddit.log'
+work_dir: './logs'

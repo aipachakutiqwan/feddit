@@ -1,0 +1,10 @@
+services:
+  inference-server-feddit:
+    build: .
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./models:/home/python/agent/models
+    environment:
+      - MODEL_SENTIMENT_ANALYSIS=models/sentiment/sentiment.pt
+
