@@ -8,9 +8,9 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 def test_api_predict_subfeddit_sentiment(subfeddit_id):
 
     payload = {"subfeddit_id": subfeddit_id, 
-               "sort_polarity_comments": True,
-               "comments_start_time": "2024-07-11 21:00:00",
-               "comments_end_time": "2024-07-12 21:00:00"
+               "sort_polarity_comments": False,
+               #"comments_start_time": "2024-07-11 21:00:00",
+               #"comments_end_time": "2024-07-12 21:00:00"
                }
 
     response = requests.post(

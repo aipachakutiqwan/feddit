@@ -22,5 +22,5 @@ RUN pip install .
 ENV PYTHONPATH "${PYTHONPATH}:/home/${USERNAME}/agent:/home/${USERNAME}/agent/src"
 ENV PATH /home/${USERNAME}/agent/.local/bin:${PATH}
 
-CMD ["uvicorn", "src.app:APP", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "src.app:APP", "--host", "0.0.0.0", "--port", "8081"]
 #CMD ["sleep", "infinity"]
