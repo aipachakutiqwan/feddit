@@ -41,19 +41,25 @@ def parse_datetime_string_to_utc(datetime_string: str):
     """
     Convert datetime string ('%Y-%m-%d %H:%M:%S') to Unix timestamp.
     """
-    if datetime_string:
-        datetime_format = datetime.datetime.strptime(datetime_string, '%Y-%m-%d %H:%M:%S')
-        unix_datetime = datetime.datetime.timestamp(datetime_format)
-        return unix_datetime
-    else:
+    try:
+        if datetime_string:
+            datetime_format = datetime.datetime.strptime(datetime_string, '%Y-%m-%d %H:%M:%S')
+            unix_datetime = datetime.datetime.timestamp(datetime_format)
+            return unix_datetime
+        else:
+            return None
+    except Exception as ex:
         return None
 
 def parse_utc_to_datetime_string(datetime_unix: int):
     """
     Convert Unix timestamp to datetime string ('%Y-%m-%d %H:%M:%S')
     """
-    if datetime_unix:
-        datetime_string = datetime.datetime.fromtimestamp(datetime_unix).strftime('%Y-%m-%d %H:%M:%S') 
-        return datetime_string
-    else:
+    try:
+        if datetime_unix:
+            datetime_string = datetime.datetime.fromtimestamp(datetime_unix).strftime('%Y-%m-%d %H:%M:%S') 
+            return datetime_string
+        else:
+            return None
+    except Exception as ex:
         return None

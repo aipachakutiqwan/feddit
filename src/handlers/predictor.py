@@ -50,16 +50,17 @@ class Predictor:
                                                  headers=None, credentials=None, timeout=60)
         parsed_subfeddit_response = None
         if subfeddit_comment_response.status_code == 200:
-            logging.info(f"Response subfeddit_comment_response microservice: {subfeddit_comment_response.json()} : subfeddit_id={subfeddit_id}")
+            logging.info(f"Response comment microservice: {subfeddit_comment_response.json()} : subfeddit_id={subfeddit_id}")
             parsed_subfeddit_response =  subfeddit_comment_response.json()
         else:
             raise Exception(f"ERROR RESPONSE {subfeddit_comment_response.status_code} SUBFEDDIT COMMENT : subfeddit_id={subfeddit_id}")
         logging.info(f'subfeddit_response: {json.dumps(parsed_subfeddit_response, indent=4)} : subfeddit_id={subfeddit_id}')
         array_response_comments = []
         for dict_comment in parsed_subfeddit_response['comments']:
-            self.analize_comment_sentiment(array_response_comments, dict_comment, subfeddit_id)
+            self.analize_comment_sentiment(array_response_comments, dict_comment, subfeddit_id, )
         logging.info(f'array_response_comments: {json.dumps(array_response_comments, indent=4)} : subfeddit_id={subfeddit_id}')
         formatted_comments, observations = self.format_output(array_response_comments, subfeddit)
+        logging.info(f'formatted_comments: {json.dumps(formatted_comments, indent=4)} : subfeddit_id={subfeddit_id}')
         response = SubfedditResponse(id=subfeddit_id, comments = formatted_comments, observations=observations)
         logging.info(f'Processing time subfeddit sentiment analysis: {time.time()- start_processing}: subfeddit_id={subfeddit_id}')
         return response
@@ -74,15 +75,15 @@ class Predictor:
         Returns:
             array_response_comments: added sentiment to comment list.
         """
-        logging.info(f'processing comment: {comment} : subfeddit_id = {subfeddit_id}')
+        logging.info(f'processing comment: {comment} : subfeddit_id={subfeddit_id} : comment_id={comment['id']}')
         tokens = self.tokenizer.encode(comment['text'], return_tensors='pt')
         model_output = self.model(tokens)
-        logging.info(f'model_output: {model_output} : subfeddit_id = {subfeddit_id}')
+        logging.info(f'model_output: {model_output} : subfeddit_id={subfeddit_id} : comment_id={comment['id']}')
         class_number = int(torch.argmax(model_output.logits))
         sentiment_id = 1 if class_number>=2 else 0
         polarity_score = float(torch.max(model_output.logits))
-        logging.info(f'polarity_score: {polarity_score} : subfeddit_id = {subfeddit_id}')
-        logging.info(f'class_number: {class_number} : subfeddit_id = {subfeddit_id}')
+        logging.info(f'polarity_score: {polarity_score} : subfeddit_id={subfeddit_id} : comment_id={comment['id']}')
+        logging.info(f'class_number: {class_number} : subfeddit_id={subfeddit_id} : comment_id={comment['id']}')
         array_response_comments.append({
             'id': comment['id'],
             'text': comment['text'],
