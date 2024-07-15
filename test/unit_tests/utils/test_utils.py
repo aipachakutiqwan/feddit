@@ -52,11 +52,11 @@ class TestUtils(unittest.TestCase):
         Test parsing datetime string to UTC.
         '''
         utc_date = parse_datetime_string_to_utc('2024-07-14 20:34:00')
-        self.assertEqual(utc_date, 1720982040.0)
+        self.assertEqual(utc_date, 1720989240.0)
     
     def test_parse_utc_to_datetime_string(self):
         '''
         Test parsing UTC to datetime string
         '''
         datetime_string = parse_utc_to_datetime_string(1720982040)
-        self.assertEqual(datetime_string, '2024-07-14 20:34:00')
+        self.assertEqual(datetime_string, '2024-07-14 18:34:00')
