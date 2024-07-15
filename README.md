@@ -265,8 +265,9 @@ feddit-inference-server-feddit-1  | [Tech] 2024-07-14 22:35:25,549 - INFO - Uvic
  docker compose down
  ```
 
+#### GitHub workflow to run linting checks and tests
 
-
+The project contains a GitHub workflow to run linting checks and unit tests, its configuration is in .github/workflows. The last workflow running will be verified in https://github.com/aipachakutiqwan/feddit/actions.
 
 
 
