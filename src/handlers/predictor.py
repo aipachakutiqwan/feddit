@@ -2,16 +2,11 @@
 Predictor class manages the endpoint preprocessing, inference and postprocessing of the models.
 '''
 import os
-import sys
 import time
 import json
 import logging
-import joblib
 import torch
-import requests
 from typing import List
-from datetime import datetime
-from transformers import pipeline
 from src.utils.utils import *
 from src.api.model.subfeddit import Subfeddit
 from src.api.model.subfeddit_response import SubfedditResponse

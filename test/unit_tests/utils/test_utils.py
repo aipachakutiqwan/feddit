@@ -1,10 +1,6 @@
-import json
 import unittest
-import tempfile
 import requests
 from unittest.mock import patch
-from unittest.mock import mock_open
-from src.api.core import config
 from unittest.mock import MagicMock
 from src.utils.utils import *
 
